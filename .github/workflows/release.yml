@@ -2,6 +2,12 @@ name: Release
 
 on:
   workflow_dispatch:
+    inputs:
+      name:
+        description: 'The release name to create'
+        default: 'v1.0.0'
+        required: true
+        type: string
 
 jobs:
   test:
@@ -27,9 +33,12 @@ jobs:
 
       - name: Create Archive
         run: |
-          npm pack ./packages/quill/dist
+          mkdir -p release/quill
+          cp ./packages/quill/dist ./release/quill
+          npm pack ./release
 
-      - uses: actions/upload-artifact@v4
+      - name: Release
+        uses: softprops/action-gh-release@v2
         with:
-          name: quill
-          path: ./*.tgz
+          tag_name: ${{ inputs.name }}
+          files: '*.tgz'

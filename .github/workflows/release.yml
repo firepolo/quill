@@ -33,9 +33,7 @@ jobs:
 
       - name: Create Archive
         run: |
-          mkdir -p release/quill
-          cp -r ./packages/quill/dist ./release/quill
-          npm pack ./release
+          npm pack ./packages/quill/dist
 
       - name: Release
         uses: softprops/action-gh-release@v2

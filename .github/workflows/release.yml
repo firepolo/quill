@@ -34,7 +34,7 @@ jobs:
       - name: Create Archive
         run: |
           mkdir -p release/quill
-          cp ./packages/quill/dist ./release/quill
+          cp -r ./packages/quill/dist ./release/quill
           npm pack ./release
 
       - name: Release

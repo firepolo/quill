@@ -30,15 +30,16 @@ jobs:
         with:
           node-version: 20
 
-      - run: npm ci
-      - run: ./scripts/release.js --version ${{ github.event.inputs.version }} ${{ github.event.inputs.dry-run == 'true' && '--dry-run' || '' }}
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-          NPM_TOKEN: ${{ secrets.NPM_TOKEN }}
+      - name: Build
+        run: |
+          npm install
+          npm run build:quill
 
-      - name: Archive npm package tarball
-        uses: actions/upload-artifact@v3
+      - name: Create Archive
+        run: |
+          npm pack ./packages/quill/dist
+
+      - uses: actions/upload-artifact@v4
         with:
-          name: npm
-          path: |
-            packages/quill/dist/*.tgz
+          name: tar
+          path: packages/quill/dist/*.tgz

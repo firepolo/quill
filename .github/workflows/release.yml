@@ -2,16 +2,6 @@ name: Release
 
 on:
   workflow_dispatch:
-    inputs:
-      version:
-        description: 'npm version. Examples: "2.0.0", "2.0.0-beta.0". To deploy an experimental version, type "experimental".'
-        default: "experimental"
-        required: true
-      dry-run:
-        description: "Only create a tarball, do not publish to npm or create a release on GitHub."
-        type: boolean
-        default: true
-        required: true
 
 jobs:
   test:
